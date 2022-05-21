@@ -7,6 +7,11 @@ const express = require("express");
 const application = express();
 const PORT = process.env.PORT || 3010;
 
+// Take incoming string or array of data and parse it
+application.use(express.urlencoded({ extended: true }));
+// Take incoming JSON data and parse it
+application.use(express.json());
+
 // this requires routes file
 require("./routes/routes")(application);
 
