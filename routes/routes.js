@@ -37,7 +37,7 @@ module.exports = (application) => {
       notes.splice(request.params.id, 1);
       createAndDeleteNote();
       response.json(true);
-      console.log("Note with id: " + request.params.id + " has been deleted!");
+      console.log("The requested note has been successfully deleted!");
     });
 
     // =============== Routes for views ===============
