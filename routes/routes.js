@@ -1,9 +1,8 @@
-const { application } = require("express");
 const fs = require("fs");
 const path = require("path");
 
 module.exports = (application) => {
-  fs.readFile("db/db.json", (err, data) => {
+  fs.readFile("db/db.json", "utf8", (err, data) => {
     if (err) throw err;
 
     // =============== Routes for APIs ===============
@@ -13,6 +12,7 @@ module.exports = (application) => {
 
     // creating a route that the front-end can request data from
     application.get("/api/notes", function (request, response) {
+      // The following script reads the db.json file and returns all saved notes as JSON data.
       response.json(notes);
     });
 
@@ -22,12 +22,13 @@ module.exports = (application) => {
       let newNote = request.body;
       notes.push(newNote);
       createAndDeleteNote();
-      response.json(request.body);
+      response.json(newNote);
+      return console.log("The new added note: " + newNote.title);
     });
 
     // creating a GET route that the front-end can retrieves a note with specific id
     application.get("/api/notes/:id", function (request, response) {
-      // display json for the notes array indices of the provided id
+      // This method returns a json file containing the notes array indexes for the given id
       response.json(notes[request.params.id]);
     });
 
@@ -35,8 +36,22 @@ module.exports = (application) => {
     application.delete("/api/notes/:id", function (request, response) {
       notes.splice(request.params.id, 1);
       createAndDeleteNote();
-      console.log("Note with id: " + request.params.id + " has been deleted!");
+      response.json(true);
+      console.log("The requested note has been successfully deleted!");
     });
+
+    // =============== Routes for views ===============
+
+    // This function is used to display notes.html file if notes route has been accessed.
+    application.get("/notes", function (request, response) {
+      response.sendFile(path.join(__dirname, "../public/notes.html"));
+    });
+
+    // This function is used to display index.html if all other routes have been accessed
+    application.get("/", function (request, response) {
+      response.sendFile(path.join(__dirname, "../public/index.html"));
+    });
+    // =============== Routes for update note ===============
 
     // Adds or removes notes to the json file
     function createAndDeleteNote() {
