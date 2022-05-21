@@ -1,5 +1,7 @@
 // Express.js is required and hence this requires Express.js
 const express = require("express");
+const fs = require("fs");
+const path = require("path");
 
 // initializing the express application
 
@@ -11,11 +13,12 @@ const PORT = process.env.PORT || 3010;
 application.use(express.urlencoded({ extended: true }));
 // Take incoming JSON data and parse it
 application.use(express.json());
+application.use(express.static(__dirname));
 
 // this requires routes file
 require("./routes/routes")(application);
 
 //chaining the listen () method onto the server
 application.listen(PORT, function () {
-  console.log(`API server now listening on PORT: ` + PORT + `!`);
+  console.log("API server now listening on PORT: " + PORT + "!");
 });
