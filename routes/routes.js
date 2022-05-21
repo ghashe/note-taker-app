@@ -11,5 +11,11 @@ module.exports = (application) => {
     application.get("/api/notes", function (request, response) {
       response.json(notes);
     });
+
+    // creating a route that the front-end can retrieves a note with specific id
+    application.get("/api/notes/:id", function (request, response) {
+      // display json for the notes array indices of the provided id
+      response.json(notes[request.params.id]);
+    });
   });
 };
