@@ -22,7 +22,7 @@
     To use the app locally, using the command line, you should run node server.js to start the application, and then open https://localhost:3010/ in any web browser to launch the app.
 
 - The app is also at the following link:
-- [live on Heroku](https://herokuapp.com/) for you to use as well.
+- [live on Heroku](https://powerful-sands-43746.herokuapp.com/notes) for you to use as well.
 
 - You can clone the most recent version of repo into your machine
 - https://github.com/ghashe/note-taker-app
