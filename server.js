@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3010;
 application.use(express.urlencoded({ extended: true }));
 // Take incoming JSON data and parse it
 application.use(express.json());
-application.use(express.static("public"));
+application.use(express.static(__dirname));
 
 // this requires routes file
 require("./routes/apiRoutes")(application);
